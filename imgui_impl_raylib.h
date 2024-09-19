@@ -27,28 +27,20 @@
 *   SOFTWARE.
 *
 **********************************************************************************************/
-
-// dear imgui: Platform Backend for Raylib
-// (Info: Raylib is a cross-platform general purpose library for handling windows, inputs, graphics context creation, etc. using OpenGL)
-// This is is the low level ImGui backend for raylib, a higher level API that matches the raylib API can be found in rlImGui.h
-
-// You can use unmodified imgui_impl_* files in your project. See examples/ folder for examples of using this.
-// Prefer including the entire imgui/ repository into your project (either as a copy or as a submodule), and only build the backends you need.
-// Learn about Dear ImGui:
-// - FAQ                  https://dearimgui.com/faq
-// - Getting Started      https://dearimgui.com/getting-started
-// - Documentation        https://dearimgui.com/docs (same as your local docs/ folder).
-// - Introduction, links and more at the top of imgui.cpp
+// Modified - Copyright 2024 ShifftC. Licensed under the Apache License, Version 2.0.
 
 #pragma once
-#include "imgui.h"      // IMGUI_IMPL_API
+
+#include <imgui.h>
+
 #ifndef IMGUI_DISABLE
 
-IMGUI_IMPL_API bool ImGui_ImplRaylib_Init(void);
-IMGUI_IMPL_API void ImGui_ImplRaylib_BuildFontAtlas(void);
-IMGUI_IMPL_API void ImGui_ImplRaylib_Shutdown(void);
-IMGUI_IMPL_API void ImGui_ImplRaylib_NewFrame(void);
-IMGUI_IMPL_API void ImGui_ImplRaylib_RenderDrawData(ImDrawData* draw_data);
-IMGUI_IMPL_API bool ImGui_ImplRaylib_ProcessEvents(void);
+IMGUI_IMPL_API bool ImGui_ImplRaylib_Init();
+IMGUI_IMPL_API void ImGui_ImplRaylib_Shutdown();
+IMGUI_IMPL_API void ImGui_ImplRaylib_NewFrame();
 
-#endif // #ifndef IMGUI_DISABLE
+IMGUI_IMPL_API void ImGui_ImplRaylib_BuildFontAtlas();
+IMGUI_IMPL_API void ImGui_ImplRaylib_RenderDrawData(ImDrawData* draw_data);
+IMGUI_IMPL_API bool ImGui_ImplRaylib_ProcessEvents();
+
+#endif

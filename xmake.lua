@@ -1,6 +1,6 @@
 -- Copyright 2024 ShifftC. Licensed under the Apache License, Version 2.0.
 
-add_requires("imgui", "okraylib master")
+add_requires("imgui docking", "okraylib master")
 
 set_project("rlImGui")
 set_version("0.0.1")
