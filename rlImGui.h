@@ -36,33 +36,31 @@
 // NOTE: Microsoft specifiers to tell compiler that symbols are imported/exported from a .dll
 // NOTE: visibility("default") attribute makes symbols "visible" when compiled with -fvisibility=hidden
 #if defined(_WIN32)
-#if defined(__TINYC__)
-#define __declspec(x) __attribute__((x))
-#endif
-#if defined(BUILD_LIBTYPE_SHARED)
-#define RLIMGUIAPI __declspec(dllexport)     // We are building the library as a Win32 shared library (.dll)
-#elif defined(USE_LIBTYPE_SHARED)
-#define RLIMGUIAPI __declspec(dllimport)     // We are using the library as a Win32 shared library (.dll)
-#endif
+	#if defined(__TINYC__)
+		#define __declspec(x) __attribute__((x))
+	#endif
+
+	#if defined(BUILD_LIBTYPE_SHARED)
+		#define RLIMGUIAPI __declspec(dllexport)
+	#elif defined(USE_LIBTYPE_SHARED)
+		#define RLIMGUIAPI __declspec(dllimport)
+	#endif
 #else
-#if defined(BUILD_LIBTYPE_SHARED)
-#define RLIMGUIAPI __attribute__((visibility("default"))) // We are building as a Unix shared library (.so/.dylib)
-#endif
+	#if defined(BUILD_LIBTYPE_SHARED)
+		#define RLIMGUIAPI __attribute__((visibility("default")))
+	#endif
 #endif
 
 #ifndef RLIMGUIAPI
-#define RLIMGUIAPI       // Functions defined as 'extern' by default (implicit specifiers)
+	#define RLIMGUIAPI
 #endif
 
 #ifndef NO_FONT_AWESOME
-#include "extras/IconsFontAwesome6.h"
-#ifndef FONT_AWESOME_ICON_SIZE
-#define FONT_AWESOME_ICON_SIZE 11
-#endif
-#endif
+	#include "extras/IconsFontAwesome6.h"
 
-#ifdef __cplusplus
-extern "C" {
+	#ifndef FONT_AWESOME_ICON_SIZE
+		#define FONT_AWESOME_ICON_SIZE 11
+	#endif
 #endif
 
 // High level API. This API is designed in the style of raylib and meant to work with reaylib code.
@@ -84,7 +82,7 @@ RLIMGUIAPI void rlImGuiBegin(void);
 
 /// <summary>
 /// Ends an ImGui frame and submits all ImGui drawing to raylib for processing.
-/// Calls ImGui:Render, an d ImGui_ImplRaylib_RenderDrawData to draw to the current raylib render target
+/// Calls ImGui:Render, and ImGui_ImplRaylib_RenderDrawData to draw to the current raylib render target
 /// </summary>
 RLIMGUIAPI void rlImGuiEnd(void);
 
@@ -167,16 +165,16 @@ RLIMGUIAPI void rlImGuiImageRect(const Texture* image, int destWidth, int destHe
 /// <summary>
 /// Draws a render texture as an image an ImGui Context, automatically flipping the Y axis so it will show correctly on screen
 /// </summary>
-/// <param name="image">The render texture to draw</param>
-RLIMGUIAPI void rlImGuiImageRenderTexture(const RenderTexture* image);
+/// <param name="Image">The render texture to draw</param>
+RLIMGUIAPI void rlImGuiImageRenderTexture(const RenderTexture* Image);
 
 /// <summary>
 /// Draws a render texture as an image an ImGui Context, automatically flipping the Y axis so it will show correctly on screen
 /// Fits the render texture to the available content area
 /// </summary>
-/// <param name="image">The render texture to draw</param>
-/// <param name="center">When true the image will be centered in the content area</param>
-RLIMGUIAPI void rlImGuiImageRenderTextureFit(const RenderTexture* image, bool center);
+/// <param name="Image">The render texture to draw</param>
+/// <param name="bCenter">When true the image will be centered in the content area</param>
+RLIMGUIAPI void rlImGuiImageRenderTextureFit(const RenderTexture* Image, bool bCenter);
 
 /// <summary>
 /// Draws a texture as an image button in an ImGui context. Uses the current ImGui cursor position and the full size of the texture
@@ -194,7 +192,3 @@ bool rlImGuiImageButton(const char* name, const Texture* image);
 /// <param name="size">The size of the button</param>
 /// <returns>True if the button was clicked</returns>
 RLIMGUIAPI bool rlImGuiImageButtonSize(const char* name, const Texture* image, struct ImVec2 size);
-
-#ifdef __cplusplus
-}
-#endif
