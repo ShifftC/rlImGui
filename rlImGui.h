@@ -130,7 +130,7 @@ RLIMGUIAPI void rlImGuiBeginDelta(float deltaTime);
 /// Uses the current ImGui Cursor position and the full texture size.
 /// </summary>
 /// <param name="image">The raylib texture to draw</param>
-RLIMGUIAPI void rlImGuiImage(const Texture *image);
+RLIMGUIAPI void rlImGuiImage(const Texture* image);
 
 /// <summary>
 /// Draw a texture as an image in an ImGui Context at a specific size
@@ -140,7 +140,7 @@ RLIMGUIAPI void rlImGuiImage(const Texture *image);
 /// <param name="image">The raylib texture to draw</param>
 /// <param name="width">The width of the drawn image</param>
 /// <param name="height">The height of the drawn image</param>
-RLIMGUIAPI void rlImGuiImageSize(const Texture *image, int width, int height);
+RLIMGUIAPI void rlImGuiImageSize(const Texture* image, int width, int height);
 
 /// <summary>
 /// Draw a texture as an image in an ImGui Context at a specific size

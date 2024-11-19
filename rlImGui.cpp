@@ -92,10 +92,10 @@ void ReloadFonts()
 		MemFree(fontTexture);
 	}
 
-    fontTexture = (Texture2D*)MemAlloc(sizeof(Texture2D));
-    *fontTexture = LoadTextureFromImage(image);
-    UnloadImage(image);
-    io.Fonts->TexID = (ImTextureID)fontTexture;
+	fontTexture = (Texture2D*)MemAlloc(sizeof(Texture2D));
+	*fontTexture = LoadTextureFromImage(image);
+	UnloadImage(image);
+	io.Fonts->TexID = (ImTextureID)fontTexture;
 }
 
 static const char* GetClipTextCallback(ImGuiContext*)
@@ -139,26 +139,26 @@ static void ImGuiNewFrame(float deltaTime)
 
 	io.DisplayFramebufferScale = ImVec2(resolutionScale.x, resolutionScale.y);
 
-    if (deltaTime <= 0)
-        deltaTime = 0.001f;
+	if (deltaTime <= 0)
+		deltaTime = 0.001f;
 
 	io.DeltaTime = deltaTime;
 
-    if (ImGui::GetIO().BackendFlags & ImGuiBackendFlags_HasMouseCursors)
-    {
-        if ((io.ConfigFlags & ImGuiConfigFlags_NoMouseCursorChange) == 0)
-        {
-            ImGuiMouseCursor imgui_cursor = ImGui::GetMouseCursor();
-            if (imgui_cursor != CurrentMouseCursor || io.MouseDrawCursor)
-            {
-                CurrentMouseCursor = imgui_cursor;
-                if (io.MouseDrawCursor || imgui_cursor == ImGuiMouseCursor_None)
-                {
-                    HideCursor();
-                }
-                else
-                {
-                    ShowCursor();
+	if (ImGui::GetIO().BackendFlags & ImGuiBackendFlags_HasMouseCursors)
+	{
+		if ((io.ConfigFlags & ImGuiConfigFlags_NoMouseCursorChange) == 0)
+		{
+			ImGuiMouseCursor imgui_cursor = ImGui::GetMouseCursor();
+			if (imgui_cursor != CurrentMouseCursor || io.MouseDrawCursor)
+			{
+				CurrentMouseCursor = imgui_cursor;
+				if (io.MouseDrawCursor || imgui_cursor == ImGuiMouseCursor_None)
+				{
+					HideCursor();
+				}
+				else
+				{
+					ShowCursor();
 
 					if (!(io.ConfigFlags & ImGuiConfigFlags_NoMouseCursorChange))
 					{
@@ -668,10 +668,11 @@ void ImGui_ImplRaylib_RenderDrawData(ImDrawData* draw_data)
 				continue;
 			}
 
-            ImGuiRenderTriangles(cmd.ElemCount, cmd.IdxOffset, commandList->IdxBuffer, commandList->VtxBuffer, (Texture2D*)cmd.TextureId);
-            rlDrawRenderBatchActive();
-        }
-    }
+			ImGuiRenderTriangles(cmd.ElemCount, cmd.IdxOffset, commandList->IdxBuffer, commandList->VtxBuffer,
+			                     (Texture2D*)cmd.TextureId);
+			rlDrawRenderBatchActive();
+		}
+	}
 
 	rlSetTexture(0);
 	rlDisableScissorTest();
@@ -726,14 +727,14 @@ bool ImGui_ImplRaylib_ProcessEvents()
 		io.AddKeyEvent(ImGuiMod_Super, superDown);
 	LastSuperPressed = superDown;
 
-    // walk the keymap and check for up and down events
-    for (const auto keyItr : RaylibKeyMap)
-    {
-        if (IsKeyReleased(keyItr.first))
-            io.AddKeyEvent(keyItr.second, false);
-        else if(IsKeyPressed(keyItr.first))
-            io.AddKeyEvent(keyItr.second, true);
-    }
+	// walk the keymap and check for up and down events
+	for (const auto keyItr : RaylibKeyMap)
+	{
+		if (IsKeyReleased(keyItr.first))
+			io.AddKeyEvent(keyItr.second, false);
+		else if (IsKeyPressed(keyItr.first))
+			io.AddKeyEvent(keyItr.second, true);
+	}
 
 	if (io.WantCaptureKeyboard)
 	{
@@ -746,29 +747,28 @@ bool ImGui_ImplRaylib_ProcessEvents()
 		}
 	}
 
-    if (!io.WantSetMousePos)
-    {
-        io.AddMousePosEvent((float)GetMouseX(), (float)GetMouseY());
-    }
+	if (!io.WantSetMousePos)
+	{
+		io.AddMousePosEvent((float)GetMouseX(), (float)GetMouseY());
+	}
 
-    auto setMouseEvent = [&io](int rayMouse, int imGuiMouse)
-        {
-            if (IsMouseButtonPressed(rayMouse))
-                io.AddMouseButtonEvent(imGuiMouse, true);
-            else if (IsMouseButtonReleased(rayMouse))
-                io.AddMouseButtonEvent(imGuiMouse, false);
-        };
+	auto setMouseEvent = [&io](int rayMouse, int imGuiMouse) {
+		if (IsMouseButtonPressed(rayMouse))
+			io.AddMouseButtonEvent(imGuiMouse, true);
+		else if (IsMouseButtonReleased(rayMouse))
+			io.AddMouseButtonEvent(imGuiMouse, false);
+	};
 
-    setMouseEvent(MOUSE_BUTTON_LEFT, ImGuiMouseButton_Left);
-    setMouseEvent(MOUSE_BUTTON_RIGHT, ImGuiMouseButton_Right);
-    setMouseEvent(MOUSE_BUTTON_MIDDLE, ImGuiMouseButton_Middle);
-    setMouseEvent(MOUSE_BUTTON_FORWARD, ImGuiMouseButton_Middle + 1);
-    setMouseEvent(MOUSE_BUTTON_BACK, ImGuiMouseButton_Middle + 2);
+	setMouseEvent(MOUSE_BUTTON_LEFT, ImGuiMouseButton_Left);
+	setMouseEvent(MOUSE_BUTTON_RIGHT, ImGuiMouseButton_Right);
+	setMouseEvent(MOUSE_BUTTON_MIDDLE, ImGuiMouseButton_Middle);
+	setMouseEvent(MOUSE_BUTTON_FORWARD, ImGuiMouseButton_Middle + 1);
+	setMouseEvent(MOUSE_BUTTON_BACK, ImGuiMouseButton_Middle + 2);
 
-    {
-        Vector2 mouseWheel = GetMouseWheelMoveV();
-        io.AddMouseWheelEvent(mouseWheel.x, mouseWheel.y);
-    }
+	{
+		Vector2 mouseWheel = GetMouseWheelMoveV();
+		io.AddMouseWheelEvent(mouseWheel.x, mouseWheel.y);
+	}
 
 	if (io.ConfigFlags & ImGuiConfigFlags_NavEnableGamepad && IsGamepadAvailable(0))
 	{
